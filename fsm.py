@@ -46,9 +46,10 @@ class TocMachine(GraphMachine):
 
     def on_enter_realtime_weather(self, event):
         print("I'm entering Realtime Weather")
+
         text = event.message.text
         reply_token = event.reply_token
-        send_text_message(reply_token, query_realtime_weather(str(text))
+        send_text_message(reply_token, query_realtime_weather(text.lower())
         return "OK"
 
     def on_exit_realtime_weather(self):
