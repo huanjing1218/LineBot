@@ -34,7 +34,7 @@ machine = TocMachine(
             "dest": "type_location",
             "conditions": "is_going_to_type_location",
         },
-                {
+        {
             "trigger": "advance",
             "source": "type_location",
             "dest": "realtime_weather",
