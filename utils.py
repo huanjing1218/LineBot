@@ -32,7 +32,7 @@ def send_menu(reply_token):
             ]
         )
     )
-    line_bot_api.reply(reply_token, message)
+    line_bot_api.reply_message(reply_token, message)
     return
 
 """
