@@ -49,7 +49,7 @@ class TocMachine(GraphMachine):
 
         text = event.message.text
         reply_token = event.reply_token
-        result = query_realtime_weather(text.lower())
+        result = query_realtime_weather(text)
         send_text_message(reply_token, result)
         return "OK"
 
