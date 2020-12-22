@@ -33,7 +33,7 @@ def send_menu(reply_token):
         )
     )
     line_bot_api.reply_message(reply_token, message)
-    return
+    return "OK"
 
 """
 def send_image_url(id, img_url):
