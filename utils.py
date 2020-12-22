@@ -37,7 +37,9 @@ def send_menu(reply_token):
     line_bot_api.reply_message(reply_token, message)
     return "OK"
 
-def query_realtime_weather(city, town):
+def query_realtime_weather(location):
+    city = location[0:2]
+    town = location[3:len(location)-1]
     city = city.replace('台', '臺')
     result = ''
     find = False

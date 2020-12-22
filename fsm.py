@@ -14,19 +14,22 @@ class TocMachine(GraphMachine):
     def is_going_to_type_location(self, event):
         text = event.message.text
         return text.lower() == "即時天氣"
-
+    '''
     def is_going_to_realtime_weather(self, event):
         text = event.message.text
         reply_token = event.reply_token
         send_text_message(reply_token, query_realtime_weather(text.lower()))
         return True
-
+    '''
     def is_going_to_state2(self, event):
         text = event.message.text
         return text.lower() == "go to state2"
 
     def on_enter_weather_service(self, event):
         print("I'm entering Weather Service")
+        text = event.message.text
+        reply_token = event.reply_token
+        send_text_message(reply_token, query_realtime_weather(str(text))
         return "OK"
 
     def on_exit_weather_service(self):
