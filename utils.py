@@ -38,8 +38,8 @@ def send_menu(reply_token):
     return "OK"
 
 def query_realtime_weather(location):
-    city = location[0:2]
-    town = location[3:len(location)-1]
+    city = location[0:3]
+    town = location[3:]
     city = city.replace('台', '臺')
     result = ''
     find = False
@@ -49,14 +49,14 @@ def query_realtime_weather(location):
     data = data['records']['location']
     for i in data:
         if city != '' and town != '' and city == i['parameter'][0]['parameterValue'] and town == i['parameter'][2]['parameterValue']:
-            data = i
             result = i['parameter'][0]['parameterValue'] + i['parameter'][2]['parameterValue'] + '\n\n'
-            result += '時間：' + data['time']['obsTime'] + '\n'
-            result += '氣溫：' + data['weatherElement'][3]['elementValue'] + ' ℃\n'
-            result += '濕度：' + str(round(float(data['weatherElement'][4]['elementValue']) * 100)) + ' %'
+            tmp = i['time']['obsTime'].split(' ')
+            result += '日期：' + tmp[0] + '\n'
+            result += '時間：' + tmp[1] + '\n'
+            result += '氣溫：' + i['weatherElement'][3]['elementValue'] + ' ℃\n'
+            result += '濕度：' + str(round(float(i['weatherElement'][4]['elementValue']) * 100)) + ' %'
             find = True
             break
-
 
     if not find :
         end_point = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=CWB-56562D80-292A-4ED6-BA0C-F6B5A1B82538&format=JSON'
@@ -64,11 +64,12 @@ def query_realtime_weather(location):
         data = data['records']['location']
         for i in data:
             if city != '' and town != '' and city == i['parameter'][0]['parameterValue'] and town == i['parameter'][2]['parameterValue']:
-                data = i
                 result = i['parameter'][0]['parameterValue'] + i['parameter'][2]['parameterValue'] + '\n\n'
-                result += '時間：' + data['time']['obsTime'] + '\n'
-                result += '氣溫：' + data['weatherElement'][3]['elementValue'] + ' ℃\n'
-                result += '濕度：' + str(round(float(data['weatherElement'][4]['elementValue']) * 100)) + ' %'
+                tmp = i['time']['obsTime'].split(' ')
+                result += '日期：' + tmp[0] + '\n'
+                result += '時間：' + tmp[1] + '\n'
+                result += '氣溫：' + i['weatherElement'][3]['elementValue'] + ' ℃\n'
+                result += '濕度：' + str(round(float(i['weatherElement'][4]['elementValue']) * 100)) + ' %'
                 find = True
                 break
 

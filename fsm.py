@@ -31,36 +31,25 @@ class TocMachine(GraphMachine):
         send_menu(reply_token)
         return "OK"
 
-    def on_exit_weather_service(self):
-        print("Leaving Weather Service")
-
     def on_enter_type_location(self, event):
         print("I'm entering Type Location")
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "請輸入縣市及行政區\n例如：台北市信義區")
+        send_text_message(reply_token, "請輸入縣市以及行政區\n(例如：台南市中西區)")
         return "OK"
-
-    def on_exit_type_location(self):
-        print("Leaving Type Location")
 
     def on_enter_realtime_weather(self, event):
         print("I'm entering Realtime Weather")
-
         text = event.message.text
         reply_token = event.reply_token
-        result = query_realtime_weather(text)
-        send_text_message(reply_token, result)
-        return "OK"
-
-    def on_exit_realtime_weather(self):
-        print("Leaving Realtime Weather")
+        send_text_message(reply_token,  query_realtime_weather(text))
+        self.go_back()
 
     def on_enter_state2(self, event):
         print("I'm entering state2")
 
         reply_token = event.reply_token
-        send_text_message(reply_token, "Trigger state2")
+        send_text_message(reply_token, "Test in state2 123123")
         self.go_back()
 
     def on_exit_state2(self):
