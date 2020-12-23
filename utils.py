@@ -20,7 +20,7 @@ def send_menu(reply_token):
     message = TemplateSendMessage(
         alt_text='Buttons template',
         template=ButtonsTemplate(
-            title='天氣服務',
+            title='天氣',
             text='請點選需要的服務',
             actions=[
                 MessageTemplateAction(
@@ -30,6 +30,10 @@ def send_menu(reply_token):
                 MessageTemplateAction(
                     label='天氣預報',
                     text='天氣預報'
+                ),
+                MessageTemplateAction(
+                    label='雷達回波',
+                    text='雷達回波'
                 )
             ]
         )
@@ -44,32 +48,20 @@ def query_realtime_weather(location):
     result = ''
     find = False
 
-    end_point = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWB-56562D80-292A-4ED6-BA0C-F6B5A1B82538&format=JSON'
-    data = requests.get(end_point).json()
-    data = data['records']['location']
-    for i in data:
-        if city == i['parameter'][0]['parameterValue'] and town == i['parameter'][2]['parameterValue']:
-            result = i['parameter'][0]['parameterValue'] + i['parameter'][2]['parameterValue'] + '\n\n'
-            tmp = i['time']['obsTime'].split(' ')
-            result += '日期：' + tmp[0] + '\n'
-            result += '時間：' + tmp[1] + '\n'
-            result += '氣溫：' + i['weatherElement'][3]['elementValue'] + ' ℃\n'
-            result += '濕度：' + str(round(float(i['weatherElement'][4]['elementValue']) * 100)) + ' %'
-            find = True
+    end_point = ['https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0003-001?Authorization=CWB-56562D80-292A-4ED6-BA0C-F6B5A1B82538&format=JSON', 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=CWB-56562D80-292A-4ED6-BA0C-F6B5A1B82538&format=JSON']
+    for i in end_point:
+        if find:
             break
-
-    if not find :
-        end_point = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/O-A0001-001?Authorization=CWB-56562D80-292A-4ED6-BA0C-F6B5A1B82538&format=JSON'
         data = requests.get(end_point).json()
         data = data['records']['location']
-        for i in data:
-            if city != '' and town != '' and city == i['parameter'][0]['parameterValue'] and town == i['parameter'][2]['parameterValue']:
-                result = i['parameter'][0]['parameterValue'] + i['parameter'][2]['parameterValue'] + '\n\n'
-                tmp = i['time']['obsTime'].split(' ')
-                result += '日期：' + tmp[0] + '\n'
-                result += '時間：' + tmp[1] + '\n'
-                result += '氣溫：' + i['weatherElement'][3]['elementValue'] + ' ℃\n'
-                result += '濕度：' + str(round(float(i['weatherElement'][4]['elementValue']) * 100)) + ' %'
+        for j in data:
+            if city == j['parameter'][0]['parameterValue'] and town == j['parameter'][2]['parameterValue']:
+                result = j['parameter'][0]['parameterValue'] + j['parameter'][2]['parameterValue'] + '\n\n'
+                time = j['time']['obsTime'].split(' ')
+                result += '日期：' + time[0] + '\n'
+                result += '時間：' + time[1] + '\n'
+                result += '氣溫：' + j['weatherElement'][3]['elementValue'] + ' ℃\n'
+                result += '濕度：' + str(round(float(j['weatherElement'][4]['elementValue']) * 100)) + ' %'
                 find = True
                 break
 
