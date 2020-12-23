@@ -48,7 +48,7 @@ def query_realtime_weather(location):
     data = requests.get(end_point).json()
     data = data['records']['location']
     for i in data:
-        if city != '' and town != '' and city == i['parameter'][0]['parameterValue'] and town == i['parameter'][2]['parameterValue']:
+        if city == i['parameter'][0]['parameterValue'] and town == i['parameter'][2]['parameterValue']:
             result = i['parameter'][0]['parameterValue'] + i['parameter'][2]['parameterValue'] + '\n\n'
             tmp = i['time']['obsTime'].split(' ')
             result += '日期：' + tmp[0] + '\n'
