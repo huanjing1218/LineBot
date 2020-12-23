@@ -35,9 +35,9 @@ machine = TocMachine(
             "conditions": "is_going_to_search_realtime",
         },
         {
-            "trigger": "advance"
-            "source": "weather_service"
-            "dest": "search_forecast"
+            "trigger": "advance",
+            "source": "weather_service",
+            "dest": "search_forecast",
             "conditions": "is_going_to_search_forecast",
         },
         {
@@ -45,7 +45,7 @@ machine = TocMachine(
             "source": "search_realtime",
             "dest": "realtime_weather",
         },
-                {
+        {
             "trigger": "advance",
             "source": "search_forecast",
             "dest": "weather_forecast",
