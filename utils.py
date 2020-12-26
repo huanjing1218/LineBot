@@ -7,7 +7,6 @@ from linebot import LineBotApi, WebhookParser
 from linebot.models import MessageEvent, TextMessage, TextSendMessage, ButtonsTemplate, TemplateSendMessage, MessageTemplateAction, ImageSendMessage
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 
 load_dotenv()
@@ -108,9 +107,12 @@ def check_forecast(location):
     return result
 
 def radar_echo(reply_token):
-    options = Options()
-    options.add_argument("--disable-notifications")
-    chrome = webdriver.Chrome('./chromedriver', chrome_options=options)
+    options = webdriver.ChromeOptions()
+    options.binary_location = os.getenv("GOOGLE_CHROME_BIN")
+    options.add_argument("--headless")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--no-sandbox")
+    chrome = webdriver.Chrome(executable_path=os.getenv("CHROMEDRIVER_PATH"), chrome_options=options)
     chrome.get("https://www.cwb.gov.tw/V8/C/W/OBS_Radar.html")
     soup = BeautifulSoup(chrome.page_source, "html.parser")
     result = soup.find_all("img", {"alt": "雷達回波"})
