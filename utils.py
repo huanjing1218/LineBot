@@ -23,6 +23,7 @@ def send_menu(reply_token):
     message = TemplateSendMessage(
         alt_text='Buttons template',
         template=ButtonsTemplate(
+            thumbnail_image_url='https://i.imgur.com/VAoVSfD.png?1',
             title='天氣',
             text='請點選需要的服務',
             actions=[
@@ -60,12 +61,12 @@ def check_weather(location):
         data = data['records']['location']
         for j in data:
             if city == j['parameter'][0]['parameterValue'] and town == j['parameter'][2]['parameterValue']:
-                result = j['parameter'][0]['parameterValue'] + j['parameter'][2]['parameterValue'] + '\n\n'
+                result =  '\U0001F6A9  ' + j['parameter'][0]['parameterValue'] + j['parameter'][2]['parameterValue'] + '\n\n'
                 time = j['time']['obsTime'].split(' ')
-                result += '日期：' + time[0] + '\n'
-                result += '時間：' + time[1] + '\n'
-                result += '氣溫：' + j['weatherElement'][3]['elementValue'] + ' ℃\n'
-                result += '濕度：' + str(round(float(j['weatherElement'][4]['elementValue']) * 100)) + ' %'
+                result += '\U0001F4C5  ' + time[0] + '\n'
+                result += '\U0001F55B  ' + time[1] + '\n'
+                result += '\U00002600  ' + j['weatherElement'][3]['elementValue'] + ' ℃\n'
+                result += '\U0001F4A7  ' + str(round(float(j['weatherElement'][4]['elementValue']) * 100)) + ' %'
                 find = True
                 break
 
@@ -82,7 +83,7 @@ def check_forecast(location):
     taiwan = {'臺北市': '063', '新北市': '071', '基隆市': '051', '桃園市': '007', '新竹縣': '011', '新竹市': '055', '苗栗縣': '015', '臺中市': '075', '南投縣': '023', '彰化縣': '019', '雲林縣': '027', '嘉義縣': '031', '嘉義市': '059', '臺南市': '079', '高雄市': '067', '屏東縣': '035', '宜蘭縣': '003', '花蓮縣': '043', '臺東縣': '039', '澎湖縣': '047', '金門縣': '087', '連江縣': '083'}
     if city in taiwan:
         ID = taiwan.get(city)
-        result += city + town + '　三天天氣預報'
+        result += '\U001000A4' + city + town + '\U001000A4三天天氣預報\U001000A4'
 
         website = 'https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-' + ID + '?Authorization=CWB-56562D80-292A-4ED6-BA0C-F6B5A1B82538&elementName=WeatherDescription'
         data = requests.get(website).json()
@@ -101,9 +102,9 @@ def check_forecast(location):
                 for j in range(3):
                     result += '\n' + tmp[j]
         else:
-            result = '查無結果\n請確認輸入內容'
+            result = '查無結果\U0010008E\n請確認輸入內容'
     else:
-        result = '查無結果\n請確認輸入內容'
+        result = '查無結果\U0010008E\n請確認輸入內容'
     return result
 
 def radar_echo(reply_token):
