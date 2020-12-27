@@ -8,7 +8,7 @@ from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 
 from fsm import TocMachine
-from utils import send_text_message
+from utils import send_text_message, send_fsm
 
 load_dotenv()
 
@@ -148,7 +148,10 @@ def webhook_handler():
         print(f"REQUEST BODY: \n{body}")
         response = machine.advance(event)
         if response == False:
-            send_text_message(event.reply_token, "沒有這個功能\U0010007C\U0010007C\U0010007C")
+            if event.message.text.lower() == "fsm":
+                send_fsm(event.reply_token, "https://toc-life-assistant.herokuapp.com/show-fsm")
+            else:
+                send_text_message(event.reply_token, "沒有這個功能\U0010007C\U0010007C\U0010007C")
 
     return "OK"
 
