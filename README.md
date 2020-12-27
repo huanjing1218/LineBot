@@ -13,7 +13,28 @@ A Line bot based on a finite state machine
 
 ## Usage
 初始狀態為`user`  
-輸入`天氣`進入`weather_service` 即可選擇三種功能
+
+輸入`天氣`進入`weather_service` 即可選擇三種功能 
+
+也可以直接輸入功能名稱進行查詢
+
+![menu](./img/menu.png)
+
+
+### 即時天氣
+進入`check_weather`，輸入行政區後即進入`weather`並回覆區域內測站的最新資訊
+
+![function1](./img/function1.png)
+
+### 天氣預報
+進入`check_forecast`，輸入行政區後即進入`forecast`並回覆該地區近三天的天氣預報
+
+![function2](./img/function2.png)
+
+### 雷達回波
+進入`radar_echo`，線上抓取中央氣象局最新的雷達回波圖後並回覆
+
+![function3](./img/function3.png)
 
 
 ## Setup
