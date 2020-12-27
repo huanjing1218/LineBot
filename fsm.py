@@ -75,6 +75,6 @@ class TocMachine(GraphMachine):
     def on_enter_manual(self, event):
         print("I'm entering Manual")
         reply_token = event.reply_token
-        send_text_message(reply_token, "不知道怎麼使用嗎？\n輸入\"天氣\"試試看吧\U00100085 ")
+        send_text_message(reply_token, "不知道怎麼使用嗎\U00100085\n輸入「天氣」試試看吧")
         self.go_back()
 
