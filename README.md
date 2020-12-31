@@ -24,13 +24,19 @@ A Line bot based on a finite state machine
 
 
 ### 即時天氣
-進入`check_weather`，輸入行政區後即進入`weather`並回覆區域內測站的最新資訊
+進入`check_weather`，輸入行政區後即進入`weather`並回覆該區域內測站的最新資訊
+
+如果該行政區內沒有測站可嘗試輸入鄰近行政區
+
+內容依序為日期、時間、氣溫、濕度
 
 ![](https://i.imgur.com/seSPhfx.jpg)
 
 
 ### 天氣預報
 進入`check_forecast`，輸入行政區後即進入`forecast`並回覆該地區近三天的天氣預報
+
+內容包含時間、天氣描述、降雨機率、氣溫
 
 ![](https://i.imgur.com/eOzFUwF.jpg)
 
